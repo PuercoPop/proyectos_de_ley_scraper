@@ -24,8 +24,7 @@ class ExpedienteSpider(scrapy.Spider):
         append = start_urls.append
 
         # get list of proyects ids from pdl_proyecto table with no events
-        query = "select expediente from pdl_proyecto WHERE legislatura={}".format(settings.LEGISLATURE)
-        res = db.query(query)
+        res = db.query("select expediente from pdl_proyecto WHERE legislatura=:legislatura", legislatura=settings.LEGISLATURE)
         for i in res:
             append(i['expediente'])
         return start_urls
